@@ -12,15 +12,28 @@
 const SUPABASE_URL = 'https://htwjccgteazjxqjbmvsq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_WRn9G0BhzuO8vzVy33JhhA_9tlUt_BV';
 
-// Build the REST base URL for convenience.
-const REST_BASE = `${SUPABASE_URL}/rest/v1`;
+async function fetchSpots() {
+  const status = document.getElementById('status');
+  status.textContent = 'Loading spots…';
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/spots?select=id,name,lat,lon,notes`, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Accept: 'application/json'
+      }
+    });
+    const spots = await res.json();
+    document.getElementById('spot-list').innerHTML =
+      spots.map(s => `<h3>${s.name}</h3><p>${s.notes || ''}</p>`).join('');
+    status.textContent = `Loaded ${spots.length} spots`;
+  } catch (err) {
+    status.textContent = `Error: ${err.message}`;
+  }
+}
 
-// Common headers for Supabase REST calls.
-const defaultHeaders = {
-  'apikey': SUPABASE_ANON_KEY,
-  'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-  'Accept': 'application/json',
-};
+// call on page load
+document.addEventListener('DOMContentLoaded', fetchSpots);
 
 // Elements on the page.
 const spotsListEl = document.getElementById('spots');
