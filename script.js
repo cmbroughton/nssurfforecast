@@ -10,7 +10,7 @@
 
 // Change these constants to point at your Supabase project and anon key.
 const SUPABASE_URL = 'https://htwjccgteazjxqjbmvsq.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_secret_ZbeWuxK69MT3n1qWajLasw_KaX_tqEb';
+const SUPABASE_ANON_KEY = 'sb_publishable_WRn9G0BhzuO8vzVy33JhhA_9tlUt_BV';
 
 // Build the REST base URL for convenience.
 const REST_BASE = `${SUPABASE_URL}/rest/v1`;
