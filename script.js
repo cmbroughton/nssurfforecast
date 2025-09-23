@@ -13,27 +13,26 @@ const SUPABASE_URL = 'https://htwjccgteazjxqjbmvsq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_WRn9G0BhzuO8vzVy33JhhA_9tlUt_BV';
 
 async function fetchSpots() {
-  const status = document.getElementById('status');
-  status.textContent = 'Loading spots…';
+  const statusEl = document.getElementById('status');
+  statusEl.textContent = 'Loading spots…';
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/spots?select=id,name,lat,lon,notes`, {
       headers: {
         apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        Accept: 'application/json'
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`
       }
     });
     const spots = await res.json();
     document.getElementById('spot-list').innerHTML =
       spots.map(s => `<h3>${s.name}</h3><p>${s.notes || ''}</p>`).join('');
-    status.textContent = `Loaded ${spots.length} spots`;
-  } catch (err) {
-    status.textContent = `Error: ${err.message}`;
+    // populate your feedback form’s spot dropdown here
+    statusEl.textContent = `Loaded ${spots.length} spots`;
+  } catch (error) {
+    statusEl.textContent = `Error: ${error.message}`;
   }
 }
-
-// call on page load
 document.addEventListener('DOMContentLoaded', fetchSpots);
+
 
 // Elements on the page.
 const spotsListEl = document.getElementById('spots');
