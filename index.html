@@ -1,45 +1,86 @@
-<h2>Today’s Forecast</h2>
-<div id="forecast-wrap">
-  <!-- per-spot forecast cards render here -->
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NS Surf Forecast</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; line-height: 1.35; }
+    h1 { margin: 0 0 16px; }
+    nav { display: flex; gap: 12px; margin-bottom: 16px; }
+    nav button { padding: 8px 12px; border: 1px solid #ccc; background: #fafafa; cursor: pointer; border-radius: 6px; }
+    nav button.active { background: #333; color: #fff; border-color: #333; }
+    .view { display: none; }
+    .view.active { display: block; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 10px 0; }
+    label { display: block; margin: 8px 0 4px; }
+    input, select { padding: 6px 8px; font-size: 14px; }
+    #status { color: #555; margin: 4px 0 12px; }
+  </style>
+</head>
+<body>
+  <h1>NS Surf Forecast</h1>
 
-<h2>Submit Session Feedback</h2>
-<form id="feedback-form">
-  <label>Spot:
-    <select id="spot-select"></select>
-  </label>
-  <br />
-  <label>Date:
-    <input type="date" id="surf-date" required />
-  </label>
-  <br />
-  <label>Time block:
-    <select id="time-block">
-      <option value="dawn">Dawn</option>
-      <option value="morning">Morning</option>
-      <option value="midday">Midday</option>
-      <option value="afternoon">Afternoon</option>
-      <option value="evening">Evening</option>
-    </select>
-  </label>
-  <br />
-  <label>Stoke (1–5):
-    <input type="number" id="stoke" min="1" max="5" value="3" />
-  </label>
-  <br />
-  <label>Forecast fit:
-    <select id="fit">
-      <option value="spot_on">Spot on</option>
-      <option value="close">Close</option>
-      <option value="a_bit_off">A bit off</option>
-      <option value="way_off">Way off</option>
-    </select>
-  </label>
-  <br />
-  <label>Notes:
-    <input type="text" id="notes" placeholder="Optional" />
-  </label>
-  <br />
-  <button type="submit">Submit Feedback</button>
-</form>
-<p id="feedback-status"></p>
+  <!-- Navigation -->
+  <nav>
+    <button id="tab-forecasts" class="active" data-view="view-forecasts">Forecasts</button>
+    <button id="tab-feedback" data-view="view-feedback">Feedback</button>
+    <button id="tab-summary" data-view="view-summary">Daily Summary</button>
+  </nav>
+
+  <!-- Forecasts view -->
+  <section id="view-forecasts" class="view active">
+    <p id="status">Loading…</p>
+    <div id="forecast-wrap"></div>
+    <h3>Spots</h3>
+    <div id="spot-list"></div>
+  </section>
+
+  <!-- Feedback view -->
+  <section id="view-feedback" class="view">
+    <h2>Submit Session Feedback</h2>
+    <form id="feedback-form">
+      <label>Spot:
+        <select id="spot-select"></select>
+      </label>
+      <label>Date:
+        <input type="date" id="surf-date" required />
+      </label>
+      <label>Time block:
+        <select id="time-block">
+          <option value="dawn">Dawn</option>
+          <option value="morning">Morning</option>
+          <option value="midday">Midday</option>
+          <option value="afternoon">Afternoon</option>
+          <option value="evening">Evening</option>
+        </select>
+      </label>
+      <label>Stoke (1–5):
+        <input type="number" id="stoke" min="1" max="5" value="3" />
+      </label>
+      <label>Forecast fit:
+        <select id="fit">
+          <option value="spot_on">Spot on</option>
+          <option value="close">Close</option>
+          <option value="a_bit_off">A bit off</option>
+          <option value="way_off">Way off</option>
+        </select>
+      </label>
+      <label>Notes:
+        <input type="text" id="notes" placeholder="Optional" />
+      </label>
+      <br />
+      <button type="submit">Submit Feedback</button>
+    </form>
+    <p id="feedback-status"></p>
+  </section>
+
+  <!-- Daily Summary view -->
+  <section id="view-summary" class="view">
+    <h2>Today’s Community Summary</h2>
+    <div id="summary-wrap"></div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
