@@ -10,7 +10,15 @@ from features import make_features
 from model import predict_quality, predict_stoke
 from db import insert_forecasts
 
+# Map site keys (from sites.yaml) to Supabase UUIDs
+SPOT_IDS = {
+    "lawrencetown": "cf39c3ed-d856-44a9-9876-d0ee30d8aa24",
+    "martinique":   "8cf66100-002e-4c7e-8362-1ce4233020a8",
+    "silversands":  "aba71920-6b52-40bb-96c8-224ac52e224d"
+}
+
 def run_once():
+    # Load site metadata from config
     sites = yaml.safe_load(open(Path(__file__).parents[1] / "config" / "sites.yaml"))["sites"]
     rows = []
     run_time = datetime.datetime.utcnow().isoformat() + "Z"
@@ -21,7 +29,7 @@ def run_once():
         for w in wave_series:
             feats = make_features(w, wind)
             rows.append({
-                "spot_id": None,  # TODO: map site name to Supabase UUID
+                "spot_id": SPOT_IDS[sid],
                 "run_time": run_time,
                 "valid_time": w["valid_time"],
                 "src_raw": {"wave": w, "wind": wind},
