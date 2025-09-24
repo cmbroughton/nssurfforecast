@@ -1,0 +1,26 @@
+sites:
+  lawrencetown:
+    name: "Lawrencetown Beach"
+    lat: 44.644242
+    lon: -63.340859
+    hb_ref_depth_m: 10
+  martinique:
+    name: "Martinique Beach"
+    lat: 44.69225
+    lon: -63.12224
+    hb_ref_depth_m: 10
+  silversands:
+    name: "Silversands (Cow Bay)"
+    lat: 44.61470
+    lon: -63.43287
+    hb_ref_depth_m: 10
+
+nearby_obs:
+  deepwater:
+    ndbc_44258:
+      lat: 44.500
+      lon: -63.400
+  nearshore:
+    herring_cove:
+      lat: 44.5559
+      lon: -63.54447
